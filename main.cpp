@@ -1,6 +1,15 @@
-
-
 #include "TXLib.h"
+
+struct MenuButton
+{
+    HDC Button;
+
+    int x1;
+    int x2;
+    int y1;
+    int y2;
+    const char* text;
+};
 
 void drawButton(int x, int y, HDC baton, const char* text)
 {
@@ -19,11 +28,11 @@ int main()
     {
         txSetFillColor(TX_BLACK);
         txClear();
-        drawButton(0, 0, baton,   "ÏÎÍÈ"  ) ;
-        drawButton(0, 130, baton, "ÕÂÎÑÒ" ) ;
-        drawButton(0, 260, baton,"ÊÎÏÛÒÀ" ) ;
-        drawButton(0, 390, baton,"ÃÎËÎÂÀ" ) ;
-        drawButton(0, 520, baton, "ÒÅËÎ"  ) ;
+        drawButton(0, 0, baton,   "ÃÃŽÃÃˆ"  ) ;
+        drawButton(0, 130, baton, "Ã•Ã‚ÃŽÃ‘Ã’" ) ;
+        drawButton(0, 260, baton,"ÃŠÃŽÃÃ›Ã’Ã€" ) ;
+        drawButton(0, 390, baton,"ÃƒÃŽÃ‹ÃŽÃ‚Ã€" ) ;
+        drawButton(0, 520, baton, "Ã’Ã…Ã‹ÃŽ"  ) ;
 
 
         if (txMouseButtons() & 1 &&
@@ -40,31 +49,21 @@ int main()
             txMouseY() >=   0 + 30 &&
             txMouseY() <= 140 - 45)
         {
-            txTextOut(500, 50, "ÏÐÈÂ");
+            txTextOut(500, 50, "ÃÃÃˆÃ‚");
         }
 
         txSleep(10);
     }
+  
+    MenuButton b = {Button, 0,530,10,140,"ÃÃŽÃÃˆ"};
 
-
+    txSelectFont("Arial", 30);
+    txTransparentBlt(txDC(), b.x1, b.y1,  b.x2 - b.x1, b.y2 - b.y1,      b.Button, 0,0 ,TX_WHITE);
+    txDrawText             ( b.x1, b.y1,  b.x2,      b.y2     , b.text);
 
 
     //txDeleteDC (poni);
-    txDeleteDC (baton);
+    txDeleteDC (Button);
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
