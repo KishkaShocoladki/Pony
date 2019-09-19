@@ -1,5 +1,3 @@
-
-
 #include "TXLib.h"
 
 void drawButton(int x, int y, HDC baton, const char* text)
@@ -9,24 +7,30 @@ void drawButton(int x, int y, HDC baton, const char* text)
     txDrawText      (x, y, x + 530, y + 140, text);
 }
 
+struct MenuButton
+{
+    HDC Button;
+
+    int x1;
+    int x2;
+    int y1;
+    int y2;
+    const char* text;
+};
+
 int main()
-    {
-    txCreateWindow(1200, 700);
-    //HDC  poni = txLoadImage ("poni.bmp");
-    HDC  baton = txLoadImage ("Menu_Button.bmp");
-    drawButton(0, 0, baton,   "онмх"  ) ;
-    drawButton(0, 130, baton, "убняр" ) ;
-    drawButton(0, 260, baton,"йношрю" ) ;
-    drawButton(0, 390, baton,"цнкнбю" ) ;
-    drawButton(0, 520, baton, "рекн"  ) ;
+{
+txCreateWindow(1200, 700);
+HDC Button = txLoadImage ("Menu_Button.bmp");
+MenuButton b = {Button, 0,530,10,140,"онмх"};
 
-
-
+    txSelectFont("Arial", 30);
+    txTransparentBlt(txDC(), b.x1, b.y1,  b.x2 - b.x1, b.y2 - b.y1,      b.Button, 0,0 ,TX_WHITE);
+    txDrawText             ( b.x1, b.y1,  b.x2,      b.y2     , b.text);
 
 
     //txDeleteDC (poni);
-    txDeleteDC (baton);
+    txDeleteDC (Button);
 
     return 0;
-    }
-
+}
