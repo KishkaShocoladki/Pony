@@ -39,6 +39,7 @@ int main()
     txCreateWindow(1200, 700);
     HDC  poni = txLoadImage ("Pictures/pony/unicorn.bmp");
     HDC  baton = txLoadImage ("Pictures/Menu_Button.bmp");
+    HDC  head = txLoadImage ("Pictures/Head.bmp");
 
     MenuButton b[5];
     b[0] = {baton, 0,530,  0,130,"œŒÕ»"};
@@ -50,8 +51,9 @@ int main()
 
 
     MapObject pic[2];
-    pic[0] = {600,  0,800,250,poni};
-    pic[1] = {700,200,900,550,poni};
+    pic[0] = {600,  0,1000,400,poni};
+    pic[1] = {600,  0,1000,200,head};
+    bool visible = false;
 
     while (!GetAsyncKeyState(VK_ESCAPE))
     {
@@ -63,9 +65,17 @@ int main()
         for (int nomer_knopki = 0; nomer_knopki < 5; nomer_knopki++)
         {
             b[nomer_knopki].drawButton();
+
         }
 
-        for (int nomer_kart = 0; nomer_kart < 2; nomer_kart++)
+        pic[0].drawMapObject();
+        if(visible)
+        {
+         pic[1].drawMapObject();
+        }
+
+
+        /*for (int nomer_kart = 0; nomer_kart < 2; nomer_kart++)
         {
             pic[nomer_kart].drawMapObject();
         }
@@ -84,7 +94,8 @@ int main()
             txMouseY() >=   0 + 30 &&
             txMouseY() <= 140 - 45)
         {
-            txMessageBox("1", "2");
+            visible = true;
+            //txMessageBox("1", "2");
         }
 
         if  (txMouseX() >= 100 &&
