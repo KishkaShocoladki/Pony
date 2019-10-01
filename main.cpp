@@ -43,13 +43,14 @@ int main()
     txCreateWindow(1200, 700);
     HDC  poni = txLoadImage ("Pictures/pony/unicorn.bmp");
     HDC  baton = txLoadImage ("Pictures/Menu_Button.bmp");
+    HDC  head = txLoadImage ("Pictures/Head.bmp");
 
     MenuButton b[5];
-    b[0] = {baton, 0,530,  0,130,"œŒÕ»"};
-    b[1] = {baton, 0,530,130,260,"’¬Œ—“"};
-    b[2] = {baton, 0,530,260,390," Œœ€“¿"};
-    b[3] = {baton, 0,530,390,520,"√ŒÀŒ¬¿"};
-    b[4] = {baton, 0,530,520,650,"“≈ÀŒ"};
+    b[0] = {baton, 0,530,  0,130,"√è√é√ç√à"};
+    b[1] = {baton, 0,530,130,260,"√ï√Ç√é√ë√í"};
+    b[2] = {baton, 0,530,260,390,"√ä√é√è√õ√í√Ä"};
+    b[3] = {baton, 0,530,390,520,"√É√é√ã√é√Ç√Ä"};
+    b[4] = {baton, 0,530,520,650,"√í√Ö√ã√é"};
 
     MapObject vybor_pony[3];
     vybor_pony[0] = {1000,  0,1200,200,txLoadImage ("Pictures/Pony/pony1.bmp")};
@@ -58,8 +59,9 @@ int main()
     bool vid = false;
 
     MapObject pic[2];
-    pic[0] = {600,  0,800,250,poni};
-    pic[1] = {700,200,900,550,poni};
+    pic[0] = {600,  0,1000,400,poni};
+    pic[1] = {600,  0,1000,200,head};
+    bool visible = false;
 
     while (!GetAsyncKeyState(VK_ESCAPE))
     {
@@ -70,9 +72,17 @@ int main()
         for (int nomer_knopki = 0; nomer_knopki < 5; nomer_knopki++)
         {
             b[nomer_knopki].drawButton();
+
         }
 
-        for (int nomer_kart = 0; nomer_kart < 2; nomer_kart++)
+        pic[0].drawMapObject();
+        if(visible)
+        {
+         pic[1].drawMapObject();
+        }
+
+
+        /*for (int nomer_kart = 0; nomer_kart < 2; nomer_kart++)
         {
             pic[nomer_kart].drawMapObject();
         }
@@ -84,11 +94,11 @@ int main()
             vybor_pony[2].drawMapObject2();
         }
 
-        //drawButton(0, 0, baton,   "œŒÕ»"  ) ;
-        /*drawButton(0, 130, baton, "’¬Œ—“" ) ;
-        drawButton(0, 260, baton," Œœ€“¿" ) ;
-        drawButton(0, 390, baton,"√ŒÀŒ¬¿" ) ;
-        drawButton(0, 520, baton, "“≈ÀŒ"  ) ;    */
+        //drawButton(0, 0, baton,   "√è√é√ç√à"  ) ;
+        /*drawButton(0, 130, baton, "√ï√Ç√é√ë√í" ) ;
+        drawButton(0, 260, baton,"√ä√é√è√õ√í√Ä" ) ;
+        drawButton(0, 390, baton,"√É√é√ã√é√Ç√Ä" ) ;
+        drawButton(0, 520, baton, "√í√Ö√ã√é"  ) ;    */
 
         if (txMouseButtons() & 1 &&
             txMouseX() >= 100 &&
@@ -96,7 +106,7 @@ int main()
             txMouseY() >=   0 + 30 &&
             txMouseY() <= 140 - 45)
         {
-           // txMessageBox("1", "2");
+            visible = true;
         }
 
         if  (txMouseButtons() & 1 &&
